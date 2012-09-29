@@ -1,16 +1,11 @@
-MachineLearning
-===============
+These are some machine learning algorithm I implemented before.<br />
+Most of them are R code form school assignment.
+(Don't copy & paste them as your homework!) <br />
+Hope this can help beginners who are interested in R programming or ML.<br />
 
-These are some machine learning algorithm I implemented before.
-
-Most of them are my school homework and implemented in R. 
-
-(Don't copy & paste them as your homework!)
-
-Hope this can help beginner who are interested in R programming and ML.
-
-
-2012/9/28:
- - Add colaborative filtering with different similarity
- - Add logistic regression
- - Add Matrix Factorization
+---------------
+Update Histiry:
+>2012/9/28:
+> - Add colaborative filtering with different similarity
+> - Add logistic regression
+> - Add Matrix Factorization
