@@ -4,10 +4,7 @@ getErr<-function(svm.obj, k){
   y.a.x<- svm.obj$y*svm.obj$alpha*(svm.obj$x)
   x.k<- as.matrix(svm.obj$x[k,], ncol=1)
   z<- as.matrix(y.a.x) %*% x.k
-  
-  #??check paper for this formula
   pred<- sum(z)-svm.obj$b
-  #pred<- sum(z)
   
   err<- (pred - svm.obj$y[k])
   return(err)
