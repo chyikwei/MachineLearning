@@ -1,0 +1,16 @@
+{
+    "contents" : "#remove all previous data\nrm(list=ls())\n#This is a SVM test with small data set (iris dataset) \n#training time is less than a second.\n\n#load SVM\nsource(\"SVM.R\")\n#load data & function\ndata(iris)\n\n#select only the first two Species from data\ndata = iris[iris$Species==c('setosa') | iris$Species==c('versicolor') , ]\n\n#define class y=+1,-1\ndata$y=0;\ndata[data$Species==c('setosa'),]$y = -1\ndata[data$Species==c('versicolor'),]$y=1\n\n#ignore old Species term\ndata = data[, -5]\n\n#set label to x1,x2,x3,x4\nnames(data)<-c('x1','x2','x3','x4','y')\n\n#number of samples\nm=dim(data)[1];  \n# number of features \nn=dim(data)[2];\n\nX = data[,1:(n-1)]\nY = data$y\n\n#get random sample\nindices = 1:m\ntrain.indices = sample(m, as.integer(m/2))\ntest.indices = indices[!indices %in% train.indices]\ntrain.X = X[train.indices,]\ntest.X = X[test.indices,]\ntrain.Y = Y[train.indices]\ntest.Y = Y[test.indices]\n\n#normalize training data\ntrain.X = scale(train.X);\ntrain.mu = attr(train.X, \"scaled:center\");\ntrain.var = attr(train.X, \"scaled:scale\");\n#apply normalized data to test data\ntest.X = scale(test.X, center=train.mu, scale=train.var);\n\n#run SVM\nsvm.model<-SVM(train.X, train.Y, 1,500)\n\n#train error\npred.train<-predict(svm.model, train.X)\ntable(train.Y, pred.train)\n\ntrain.err.rate<- sum(pred.train != train.Y)/length(pred.train)\ntrain.accurate.rate <- 1 - train.err.rate\n\n\n#test error\npred.test<-predict(svm.model, test.X)\ntable(test.Y, pred.test)\n\ntest.err.rate<- sum(pred.test != test.Y)/length(pred.test)\ntest.accurate.rate <- 1 -test.err.rate\n\n",
+    "created" : 1349744428942.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1693220645",
+    "id" : "B467AAEA",
+    "lastKnownWriteTime" : 1349746317,
+    "path" : "~/GitHub/MachineLearning/SVM/SVM/SVMTestSimple.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

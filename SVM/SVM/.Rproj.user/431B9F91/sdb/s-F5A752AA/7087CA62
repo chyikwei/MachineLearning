@@ -1,0 +1,16 @@
+{
+    "contents" : "#This is a SVM test with spam dataset\n#converge may take more than a hour\n#change the max iteration for fast training\n\n#remove all previous data\nrm(list=ls())\nsource(\"SVM.R\")\n#load library & data\nlibrary(kernlab)\ndata(spam)\n\n#number of samples\nm=dim(spam)[1];  \n# number of features \nn=dim(spam)[2];\n\nY=rep(0,m)\n# let spam=1, nonspam=(-1), in SVM the label has to be +1 or -1\nY[ which( spam$type == 'spam')] = 1\nY[ which( spam$type != 'spam')] = (-1)\n\n\n#separate data X and Y\nX = spam[,1:(n-1)]\n\n\n#get random sample\nindices = 1:m\n\n#50% data for training and 50% for testing\ntrain.indices = sample(m, as.integer(m/2))\ntest.indices = indices[!indices %in% train.indices]\ntrain.X = X[train.indices,]\ntest.X = X[test.indices,]\ntrain.Y = Y[train.indices]\ntest.Y = Y[test.indices]\n\n#normalize training data\ntrain.X = scale(train.X);\ntrain.mu = attr(train.X, \"scaled:center\");\ntrain.var = attr(train.X, \"scaled:scale\");\n#apply normalized data to test data\ntest.X = scale(test.X, center=train.mu, scale=train.var);\n\n#run SVM\nsvm.model<-SVM(train.X, train.Y, 0.1, max.iter=3000)\n\n#exam result\n\n#train error\npred.train<-predict(svm.model, train.X)\ntable(train.Y, pred.train)\n\ntrain.err.rate<- sum(pred.train != train.Y)/length(pred.train)\ntrain.accurate.rate <- 1 - train.err.rate\n\n\n#test error\npred.test<-predict(svm.model, test.X)\ntable(test.Y, pred.test)\n\ntest.err.rate<- sum(pred.test != test.Y)/length(pred.test)\ntest.accurate.rate <- 1 -test.err.rate\n\n",
+    "created" : 1349746372016.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1433243748",
+    "id" : "7087CA62",
+    "lastKnownWriteTime" : 1349746317,
+    "path" : "~/GitHub/MachineLearning/SVM/SVM/SVMTest.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
