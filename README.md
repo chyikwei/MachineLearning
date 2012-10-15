@@ -3,7 +3,7 @@ Most of them are R code form school assignment.
 (Don't copy & paste them as your homework!) <br />
 Hope this can help beginners who are interested in R programming or ML.<br />
 
-2012.10.15 ADD: I am currently playing with Python, so I will try to add some python code.<br />
+2012.10.15 update: I am currently playing with Python, so I will also try to add some python code.<br />
 
 
 TODO:
