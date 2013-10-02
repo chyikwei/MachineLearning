@@ -1,7 +1,5 @@
-These are some simple machine learning algorithm I implemented before.<br />
-Most of them are R code form school assignment.
-(Don't copy & paste them as your homework!) <br />
-Hope this can help beginners who are interested in R programming or ML.<br />
+These are some simple machine learning algorithms I implemented.<br />
+Hope this can help beginners who are interested in R/Python programming or ML.<br />
 
 Models:
  - Colaborative Filtering (R)
