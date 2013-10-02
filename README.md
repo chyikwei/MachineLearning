@@ -10,7 +10,7 @@ Models:
  - logistic regression (python, R)
  - Naive Bayes (python)
  - Add SVM with SMO method (pyhton)
- - Gausian mixture model (python, PyMC)
+ - Gaussian mixture model (python, PyMC)
 
 TODO:
 - add kernel functions in SVM
