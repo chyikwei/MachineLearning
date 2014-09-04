@@ -1,51 +1,54 @@
 import random
 import numpy
 
+
 class LogisticRegression:
 
-    #initialize
+    # initialize
+
     def __init__(self, X, Y, alpha=0.0005, lam=0.1, printIter=True):
 
         x = numpy.array(X)
-        m,n = x.shape
+        m, n = x.shape
 
-        #normalize data
+        # normalize data
         self.xMean = numpy.mean(x, axis=0)
         self.xStd = numpy.std(x, axis=0)
-        x = (x-self.xMean)/self.xStd
+        x = (x - self.xMean) / self.xStd
 
-        #add const column to X
-        const = numpy.array([1]*m).reshape(m,1)
-        self.X = numpy.append(const , x, axis=1)
+        # add const column to X
+        const = numpy.array([1] * m).reshape(m, 1)
+        self.X = numpy.append(const, x, axis=1)
 
         self.Y = numpy.array(Y)
         self.alpha = alpha
         self.lam = lam
-        self.theta = numpy.array([0.0]*(n+1))
+        self.theta = numpy.array([0.0] * (n + 1))
 
         self.printIter = printIter
         print "lambda=", self.lam
 
-    #transform function
-    def __sigmoid(self,x):
+    # transform function
+    def __sigmoid(self, x):
         #m,n = x.shape
         #z = numpy.array([0.0]*(m*n)).reshape(m,n)
-        z = 1.0/(1.0 + numpy.exp( (-1)*x ))
+        z = 1.0 / (1.0 + numpy.exp((-1) * x))
         return z
 
-    #caluclate cost
+    # caluclate cost
     def __costFunc(self):
         "calculate cost"
-        m,n = self.X.shape
+        m, n = self.X.shape
         h_theta = self.__sigmoid(numpy.dot(self.X, self.theta))
 
         cost1 = (-1) * self.Y * numpy.log(h_theta)
-        cost2 = (1.0-self.Y) * numpy.log(1.0-h_theta)
+        cost2 = (1.0 - self.Y) * numpy.log(1.0 - h_theta)
 
-        cost = (sum(cost1-cost2) + 0.5*self.lam*sum(self.theta[1:]**2))/m
+        cost = (
+            sum(cost1 - cost2) + 0.5 * self.lam * sum(self.theta[1:] ** 2)) / m
         return cost
 
-    #gradient descend
+    # gradient descend
     def __gradientDescend(self, iter):
         """
         gradient descend:
@@ -56,58 +59,60 @@ class LogisticRegression:
         lam: lambda, penality on theta
        """
 
-        m,n = self.X.shape
+        m, n = self.X.shape
 
-        #print "m,n=" , m,n
-        #print "theta", len(self.theta)
+        # print "m,n=" , m,n
+        # print "theta", len(self.theta)
 
-        for i in range(0,iter):
+        for i in range(0, iter):
             theta_temp = self.theta
 
-            #update theta[0]
-            h_theta = self.__sigmoid(numpy.dot(self.X,self.theta))
+            # update theta[0]
+            h_theta = self.__sigmoid(numpy.dot(self.X, self.theta))
             diff = h_theta - self.Y
-            self.theta[0] = theta_temp[0] - self.alpha*(1.0/m)*sum( diff*self.X[:,0])
+            self.theta[0] = theta_temp[0] - self.alpha * \
+                (1.0 / m) * sum(diff * self.X[:, 0])
 
-            for j in range(1,n):
-                val = theta_temp[j] - self.alpha*(1.0/m)*( sum(diff*self.X[:,j])+ self.lam*m*theta_temp[j] )
-                #print val
+            for j in range(1, n):
+                val = theta_temp[
+                    j] - self.alpha * (1.0 / m) * (sum(diff * self.X[:, j]) + self.lam * m * theta_temp[j])
+                # print val
                 self.theta[j] = val
-            #calculate cost and print
-            cost = self.__costFunc();
+            # calculate cost and print
+            cost = self.__costFunc()
 
             if self.printIter:
-                print "Iteration", i , "\tcost=", cost
-                #print "theta", self.theta
+                print "Iteration", i, "\tcost=", cost
+                # print "theta", self.theta
 
-    #simple name
-    def run(self, iter, printIter = True):
+    # simple name
+    def run(self, iter, printIter=True):
         self.printIter = printIter
         self.__gradientDescend(iter)
 
-
-    #prediction
+    # prediction
     def predict(self, X):
 
-        #add const column
-        m,n = X.shape
+        # add const column
+        m, n = X.shape
         x = numpy.array(X)
-        x = (x-self.xMean)/self.xStd
-        const = numpy.array([1]*m).reshape(m,1)
-        X = numpy.append(const , x, axis=1)
+        x = (x - self.xMean) / self.xStd
+        const = numpy.array([1] * m).reshape(m, 1)
+        X = numpy.append(const, x, axis=1)
 
         pred = self.__sigmoid(numpy.dot(X, self.theta))
-        numpy.putmask(pred , pred >=0.5 , 1.0)
-        numpy.putmask(pred , pred < 0.5 , 0.0)
+        numpy.putmask(pred, pred >= 0.5, 1.0)
+        numpy.putmask(pred, pred < 0.5, 0.0)
 
         return pred
 
+
 def main():
     pass
-    #TODO: self test
-    #print "This is a simple logistic regression test..."
-    #generate feature X
-    #generate sample response
+    # TODO: self test
+    # print "This is a simple logistic regression test..."
+    # generate feature X
+    # generate sample response
 
 
 if __name__ == "__main__":

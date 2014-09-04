@@ -16,7 +16,7 @@ def gmm_model(data, K, mu_0=0.0, alpha_0=0.1, beta_0=0.1, alpha=1.0):
     K: number of component
     n_samples: number of n_samples
     n_features: number of features
-    
+
     mu_0: prior mean of mu_k 
     alpha_0: alpha of Inverse Gamma tau_k 
     beta_0: beta of Inverse Gamma tau_k
