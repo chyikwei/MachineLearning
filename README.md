@@ -1,7 +1,8 @@
-These are some simple machine learning algorithms I implemented.<br />
-Hope this can help beginners who are interested in R/Python programming or ML.<br />
+These are some basic machine learning algorithms I implemented for school homework or for experiment.<br />
+Hope this can help beginners who are interested in R/Python programming and ML.<br />
+Note: All code are NOT optimized!
 
-Models:
+Current Models:
  - Colaborative Filtering (R)
  - Matrix Factorization (java)
  - linear regression (python)
@@ -11,5 +12,5 @@ Models:
  - Gaussian mixture model (python, PyMC)
 
 TODO:
-- add kernel functions in SVM
-- add GLMNET in linear & logistic regression
+- kernel for SVM
+- GLMNET for linear
