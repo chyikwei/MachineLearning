@@ -2,7 +2,7 @@ import random
 import numpy
 
 
-class LogisticRegression:
+class LogisticRegression(object):
 
     # initialize
 
@@ -29,14 +29,14 @@ class LogisticRegression:
         print "lambda=", self.lam
 
     # transform function
-    def __sigmoid(self, x):
+    def _sigmoid(self, x):
         #m,n = x.shape
         #z = numpy.array([0.0]*(m*n)).reshape(m,n)
         z = 1.0 / (1.0 + numpy.exp((-1) * x))
         return z
 
     # caluclate cost
-    def __costFunc(self):
+    def _costFunc(self):
         "calculate cost"
         m, n = self.X.shape
         h_theta = self.__sigmoid(numpy.dot(self.X, self.theta))
@@ -49,7 +49,7 @@ class LogisticRegression:
         return cost
 
     # gradient descend
-    def __gradientDescend(self, iter):
+    def _gradientDescend(self, iters):
         """
         gradient descend:
         X: feature matrix
@@ -64,7 +64,7 @@ class LogisticRegression:
         # print "m,n=" , m,n
         # print "theta", len(self.theta)
 
-        for i in range(0, iter):
+        for i in xrange(0, iters):
             theta_temp = self.theta
 
             # update theta[0]
@@ -73,7 +73,7 @@ class LogisticRegression:
             self.theta[0] = theta_temp[0] - self.alpha * \
                 (1.0 / m) * sum(diff * self.X[:, 0])
 
-            for j in range(1, n):
+            for j in xrange(1, n):
                 val = theta_temp[
                     j] - self.alpha * (1.0 / m) * (sum(diff * self.X[:, j]) + self.lam * m * theta_temp[j])
                 # print val
@@ -86,9 +86,9 @@ class LogisticRegression:
                 # print "theta", self.theta
 
     # simple name
-    def run(self, iter, printIter=True):
+    def run(self, iters, printIter=True):
         self.printIter = printIter
-        self.__gradientDescend(iter)
+        self._gradientDescend(iters)
 
     # prediction
     def predict(self, X):
@@ -105,15 +105,3 @@ class LogisticRegression:
         numpy.putmask(pred, pred < 0.5, 0.0)
 
         return pred
-
-
-def main():
-    pass
-    # TODO: self test
-    # print "This is a simple logistic regression test..."
-    # generate feature X
-    # generate sample response
-
-
-if __name__ == "__main__":
-    main()
